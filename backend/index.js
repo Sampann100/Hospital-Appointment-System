@@ -19,9 +19,11 @@ app.use(
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//Authentication
 app.use("/api/auth/signup", signUpPage);
 app.use("/api/auth/login", loginPage);
 
+//Registration Person
 app.post("/api/register", (req, res, next) => {
   const newPersonData = new RegisterPersonModel(req.body);
 
@@ -40,27 +42,34 @@ app.get("/api/register", async (req, res, next) => {
   res.status(200).json(data);
 });
 
+//Appointment booking && Cancelling
 app.post("/api/bookAppointment", async (req, res, next) => {
   const { patientId } = req.body;
+
+  const existing = await AppointmentModel.findOne({ patientId });
+
+    if (existing) {
+      return res.status(409).json({ message: "Appointment already booked for this patient." });
+    }
 
   const appointment = new AppointmentModel({ patientId });
   appointment.save();
   res.status(200).json({ message: "Appointment booked successfully!" });
 });
 
+app.delete("/api/bookAppointment/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const deletedAppointment = await AppointmentModel.findByIdAndDelete(id);
+  if (!deletedAppointment)
+    res.status(404).json("Appointment is not cancelled.");
+
+  res.status(200).json({ message: "Appointment booked successfully!" });
+});
+
 app.get("/api/bookAppointment", async (req, res, next) => {
   const data = await AppointmentModel.find().populate("patientId");
   res.status(200).json(data);
-});
-
-app.post("/api/bookAppointment", async (req, res) => {
-  const { patientId } = req.body;
-
-  const patientExists = await RegisterPersonModel.findById(patientId);
-  const appointment = new AppointmentModel({ patientId });
-  await appointment.save();
-
-  res.status(200).json({ message: "Appointment booked successfully!" });
 });
 
 const PORT = process.env.PORT || 8080;

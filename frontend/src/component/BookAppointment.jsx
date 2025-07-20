@@ -45,7 +45,7 @@ const BookAppointment = () => {
 
     if (response.ok) {
       alert("Appointment cancelled successfully!");
-      setBookMembers((prev) => prev.filter((item) => item._id !== id));
+      // setBookMembers((prev) => prev.filter((item) => item._id !== id));
     } else {
       alert("Failed to cancel: " + result.message);
     }
@@ -76,10 +76,8 @@ const BookAppointment = () => {
                   </p>
                   <button
                     type="button"
-                    onClick={(appointment) =>
-                      handleCancelAppointment(appointment._id)
-                    }
-                    class="btn btn-success"
+                    onClick={(e) => handleCancelAppointment(e, appointment._id)}
+                    className="btn btn-success"
                   >
                     cancel
                   </button>

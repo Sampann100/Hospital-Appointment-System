@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPerson = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const RegisterPerson = () => {
     isPatient: "",
     agree: false,
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -26,9 +28,7 @@ const RegisterPerson = () => {
       return;
     }
 
-    // Convert isPatient from string to Boolean
-    const isPatientBoolean =
-      formData.isPatient.trim().toLowerCase() === "yes";
+    const isPatientBoolean = formData.isPatient.trim().toLowerCase() === "yes";
 
     const finalData = {
       ...formData,
@@ -45,10 +45,19 @@ const RegisterPerson = () => {
 
     const data = await response.json();
     if (response.ok) {
-      alert("Registration successful!");
+      navigate("/");
     } else {
       alert("Registration failed: " + data.message);
     }
+
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      gender: "",
+      isPatient: "",
+      agree: false,
+    });
   };
 
   return (
