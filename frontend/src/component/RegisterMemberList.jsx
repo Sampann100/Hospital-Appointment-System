@@ -7,7 +7,7 @@ const RegisterMemberList = () => {
   useEffect(() => {
     const controller = new AbortController();
 
-    fetch("http://localhost:8080/api/register", {
+    fetch("http://localhost:8080/user/api/register", {
       method: "GET",
       signal: controller.signal,
     })
@@ -29,7 +29,7 @@ const RegisterMemberList = () => {
   }, []);
 
   const handleBookAppointment = async (id) => {
-    const response = await fetch("http://localhost:8080/api/bookAppointment", {
+    const response = await fetch("http://localhost:8080/user/api/bookAppointment", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -6,7 +6,7 @@ const BookAppointment = () => {
   useEffect(() => {
     const controller = new AbortController();
 
-    fetch("http://localhost:8080/api/bookAppointment", {
+    fetch("http://localhost:8080/user/api/bookAppointment", {
       method: "GET",
       signal: controller.signal,
     })
@@ -35,7 +35,7 @@ const BookAppointment = () => {
     if (!confirmCancel) return;
 
     const response = await fetch(
-      `http://localhost:8080/api/bookAppointment/${id}`,
+      `http://localhost:8080/user/api/bookAppointment/${id}`,
       {
         method: "DELETE",
       }
