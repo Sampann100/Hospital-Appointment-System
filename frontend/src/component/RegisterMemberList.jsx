@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { FaUserMd, FaUserInjured } from "react-icons/fa";
-import { userDataActions } from "../store/userDataSlice";
 
 const RegisterMemberList = () => {
-  const dispatch = useDispatch();
   const [members, setMembers] = useState([]);
 
   useEffect(() => {
@@ -17,7 +14,6 @@ const RegisterMemberList = () => {
       .then((res) => res.json())
       .then((data) => {
         setMembers(data);
-        dispatch(userDataActions.setUserData(data));
       })
       .catch((err) => {
         if (err.name === "AbortError") {
@@ -79,7 +75,12 @@ const RegisterMemberList = () => {
 
               <p className="text-muted small mb-2">
                 📧 {member.email} <br />
-                📞 {member.phone} <br />⚥ {member.gender}
+                📞 {member.phone} <br />
+                {member.gender === "male"
+                  ? "♂ Male"
+                  : member.gender === "female"
+                  ? "♀ Female"
+                  : "⚥ Other"}{" "}
               </p>
 
               <span

@@ -9,7 +9,7 @@ const Navbar = () => {
           to="/"
           className="d-flex align-items-center text-decoration-none"
         >
-          <span className="fs-4 fw-bold text-dark">Mxpertz_infolab</span>
+          <span className="fs-4 fw-bold text-dark">MediConnect</span>
         </Link>
         <ul className="nav me-auto ms-5">
           <li>
