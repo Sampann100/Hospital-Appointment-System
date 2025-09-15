@@ -8,7 +8,11 @@ const {
   deleteBookAppointment,
   getBookAppointment,
 } = require("../Controller/bookAppointment");
+const { getUserData } = require("../Controller/userController");
+const { default: userAuth } = require("../middleware/userAuth");
 const userRouter = express.Router();
+
+userRouter.get("/api/data", userAuth, getUserData);
 
 userRouter.post("/api/register", postRegisterPerson);
 userRouter.get("/api/register", getRegisterPerson);

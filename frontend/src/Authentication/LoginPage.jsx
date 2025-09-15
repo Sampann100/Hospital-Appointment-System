@@ -151,7 +151,12 @@ const LoginPage = () => {
             {message}
           </div>
         )}
-        <div className="text-center my-3">
+        <Link to="/forgotPassword" className="text-center btn btn-link">
+          <button style={{ padding: 0 }}>
+            <span className="text-secondary">Forgot your password? </span>
+          </button>
+        </Link>
+        <div className="text-center my-2">
           <span className="text-secondary">Don't have an account? </span>
           <Link
             to="/SignUp"

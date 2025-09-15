@@ -45,13 +45,17 @@ const Navbar = () => {
         <div className="col-md-3 text-end mx-3">
           {" "}
           <Link to="/Login">
-            <button type="button" className="btn btn-outline-primary me-2">
+            <button
+              type="button"
+              className="btn btn-outline-primary mx-4"
+              style={{
+                width: "150px",
+                height: "40px",
+                fontSize: "18px",
+                borderRadius: "35px",
+              }}
+            >
               Login
-            </button>
-          </Link>{" "}
-          <Link to="/SignUp">
-            <button type="button" className="btn btn-primary">
-              Sign-up
             </button>
           </Link>{" "}
         </div>{" "}
