@@ -1,64 +1,40 @@
 import { Link } from "react-router-dom";
+import { IoArrowForwardOutline } from "react-icons/io5";
 
 const Navbar = () => {
   return (
     <>
-      <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom ">
-        {" "}
-        <div className="col-md-3 mb-2 mb-md-0">
-          {" "}
-          <a
-            href="/"
-            className="d-inline-flex link-body-emphasis text-decoration-none"
-          >
-            {" "}
-          </a>{" "}
-        </div>{" "}
-        <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-          {" "}
+      <header className="d-flex justify-content-between align-items-center py-3 px-4 border-bottom">
+        <Link
+          to="/"
+          className="d-flex align-items-center text-decoration-none"
+        >
+          <span className="fs-4 fw-bold text-dark">Mxpertz_infolab</span>
+        </Link>
+        <ul className="nav me-auto ms-5">
           <li>
-            <Link to="/Home" className="nav-link px-2">
+            <Link to="/Home" className="nav-link px-2 text-dark">
               Home
             </Link>
-          </li>{" "}
+          </li>
           <li>
-            <Link to="/RegisterPersonal" className="nav-link px-2">
-              Register_Patient/Doctor
+            <Link to="/RegisterPersonal" className="nav-link px-2 text-dark">
+              Register
             </Link>
-          </li>{" "}
+          </li>
           <li>
-            <Link to="/Appointment" className="nav-link px-2">
-              Book_Appointment
+            <Link to="/Appointment" className="nav-link px-2 text-dark">
+              Appointments
             </Link>
-          </li>{" "}
-          <li>
-            <a href="#" className="nav-link px-2">
-              Portfolio
-            </a>
-          </li>{" "}
-          <li>
-            <a href="#" className="nav-link px-2">
-              Treatment
-            </a>
-          </li>{" "}
-        </ul>{" "}
-        <div className="col-md-3 text-end mx-3">
-          {" "}
-          <Link to="/Login">
-            <button
-              type="button"
-              className="btn btn-outline-primary mx-4"
-              style={{
-                width: "150px",
-                height: "40px",
-                fontSize: "18px",
-                borderRadius: "35px",
-              }}
-            >
-              Login
-            </button>
-          </Link>{" "}
-        </div>{" "}
+          </li>
+        </ul>
+
+        <Link to="/Login">
+          <button type="button" className="btn btn-primary d-flex">
+            Log in
+            <IoArrowForwardOutline className="my-1 mx-2" />
+          </button>
+        </Link>
       </header>
     </>
   );

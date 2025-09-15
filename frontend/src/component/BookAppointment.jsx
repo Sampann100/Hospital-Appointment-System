@@ -11,9 +11,7 @@ const BookAppointment = () => {
       signal: controller.signal,
     })
       .then((res) => res.json())
-      .then((data) => {
-        setBookMembers(data);
-      })
+      .then((data) => setBookMembers(data))
       .catch((err) => {
         if (err.name === "AbortError") {
           console.log("Fetch aborted");
@@ -22,10 +20,8 @@ const BookAppointment = () => {
         }
       });
 
-    return () => {
-      controller.abort();
-    };
-  }, [bookMembers]);
+    return () => controller.abort();
+  }, []);
 
   const handleCancelAppointment = async (e, id) => {
     e.preventDefault();
@@ -45,7 +41,9 @@ const BookAppointment = () => {
 
     if (response.ok) {
       alert("Appointment cancelled successfully!");
-      // setBookMembers((prev) => prev.filter((item) => item._id !== id));
+      setBookMembers((prev) =>
+        prev.filter((appointment) => appointment._id !== id)
+      );
     } else {
       alert("Failed to cancel: " + result.message);
     }
@@ -53,40 +51,57 @@ const BookAppointment = () => {
 
   return (
     <div className="container mt-4">
-      <h3 className="text-center mb-4">Booked Appointments</h3>
+      <h2 className="text-center mb-4 fw-bold text-primary">
+        📅 Booked Appointments
+      </h2>
 
-      <div className="row">
-        {bookMembers.length === 0 ? (
-          <p className="text-center">No appointments booked yet.</p>
-        ) : (
-          bookMembers.map((appointment, index) => (
+      {bookMembers.length === 0 ? (
+        <div className="alert alert-info text-center shadow-sm">
+          No appointments booked yet.
+        </div>
+      ) : (
+        <div className="row">
+          {bookMembers.map((appointment, index) => (
             <div key={appointment._id || index} className="col-md-4 mb-4">
-              <div className="card shadow-sm h-100">
+              <div className="card border-0 shadow-lg rounded-3 h-100">
                 <div className="card-body">
-                  <h5 className="card-title">Appointment</h5>
-                  <p className="card-text">
-                    <strong>Patient Name:</strong>{" "}
-                    {appointment.patientId?.name || "N/A"} <br />
-                    <strong>Email:</strong>{" "}
-                    {appointment.patientId?.email || "N/A"} <br />
-                    <strong>Gender:</strong>{" "}
-                    {appointment.patientId?.gender || "N/A"} <br />
-                    <strong>Booked At:</strong>{" "}
-                    {new Date(appointment.bookedAt).toLocaleString()}
-                  </p>
+                  <h5 className="card-title text-success fw-bold">
+                    Patient Details
+                  </h5>
+                  <ul className="list-unstyled mb-3">
+                    <li>
+                      <strong>Name:</strong>{" "}
+                      {appointment.patientId?.name || "N/A"}
+                    </li>
+                    <li>
+                      <strong>Email:</strong>{" "}
+                      {appointment.patientId?.email || "N/A"}
+                    </li>
+                    <li>
+                      <strong>Gender:</strong>{" "}
+                      {appointment.patientId?.gender || "N/A"}
+                    </li>
+                    <li>
+                      <strong>Booked At:</strong>{" "}
+                      {new Date(appointment.bookedAt).toLocaleString()}
+                    </li>
+                  </ul>
+
                   <button
                     type="button"
-                    onClick={(e) => handleCancelAppointment(e, appointment._id)}
-                    className="btn btn-success"
+                    onClick={(e) =>
+                      handleCancelAppointment(e, appointment._id)
+                    }
+                    className="btn btn-outline-danger w-100 fw-semibold"
                   >
-                    cancel
+                    Cancel Appointment
                   </button>
                 </div>
               </div>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -18,8 +18,6 @@ exports.loginPage = async (req, res) => {
     return res.status(400).json({ message: "User not found!" });
   }
 
-  console.log("signup user data: ", signupData.Password);
-  console.log("signup user data: ", Password);
   const isMatch = await bcryptjs.compare(Password, signupData.Password);
 
   if (!isMatch) {
